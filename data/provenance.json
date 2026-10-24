@@ -1,0 +1,13 @@
+{
+  "source": "Energy-Charts.info API, Fraunhofer ISE",
+  "upstream_attribution": "Bundesnetzagentur | SMARD.de",
+  "url": "https://api.energy-charts.info/price?bzn=DE-LU&start=2024-01-01T00%3A00Z&end=2024-02-29T23%3A00Z",
+  "license_info": "CC BY 4.0 (creativecommons.org/licenses/by/4.0) from Bundesnetzagentur | SMARD.de",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "retrieved_date": "2026-10-24",
+  "period": "[2024-01-01 00:00, 2024-03-01 00:00) UTC",
+  "unit": "EUR / MWh",
+  "rows": 1440,
+  "changes": "Converted Unix seconds to UTC timestamps; selected three CSV columns; prices formatted to two decimals.",
+  "csv_sha256": "eea5545b3cde9c1bb60c02f3efaac48db60ca45230bab1707bcca2217e8555c9"
+}

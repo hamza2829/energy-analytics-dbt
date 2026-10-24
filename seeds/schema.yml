@@ -1,0 +1,24 @@
+version: 2
+seeds:
+  - name: raw_prices
+    description: Real Energy-Charts.info DE-LU prices for Jan-Feb 2024 UTC. CC BY 4.0, Bundesnetzagentur | SMARD.de.
+    columns:
+      - name: timestamp_utc
+        description: Hourly interval start as a UTC string.
+      - name: bidding_zone
+        description: Germany-Luxembourg bidding zone, DE-LU.
+      - name: price_eur_per_mwh
+        description: Wholesale day-ahead price in EUR/MWh.
+  - name: partner_sales
+    description: Synthetic monthly consumption for 50 customers belonging to 5 partners, seed 42.
+    columns:
+      - name: month
+        description: First day of the reporting month as a date string.
+      - name: partner_id
+        description: Synthetic partner identifier.
+      - name: customer_id
+        description: Stable synthetic customer identifier.
+      - name: customer_type
+        description: Household or business customer.
+      - name: kwh
+        description: Monthly customer consumption in kWh.

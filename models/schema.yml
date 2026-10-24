@@ -1,0 +1,92 @@
+version: 2
+models:
+  - name: stg_prices
+    description: One real DE-LU day-ahead price per UTC hour. Negative wholesale prices are valid.
+    columns:
+      - name: timestamp_utc
+        description: Start of the hourly delivery interval in UTC, stored without a timezone suffix.
+        data_tests: [unique, not_null]
+      - name: price_date_utc
+        description: Calendar date in UTC.
+        data_tests: [not_null]
+      - name: hour_utc
+        description: Hour of day in UTC, from 0 to 23.
+        data_tests: [not_null]
+      - name: bidding_zone
+        description: Germany-Luxembourg bidding zone.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['DE-LU']
+      - name: price_eur_per_mwh
+        description: Day-ahead wholesale price in EUR/MWh, including valid negative prices.
+        data_tests: [not_null]
+  - name: stg_partner_sales
+    description: Synthetic monthly customer consumption, generated with random seed 42.
+    columns:
+      - name: customer_month_id
+        description: Unique customer and month key.
+        data_tests: [unique, not_null]
+      - name: month
+        description: First day of the UTC reporting month.
+        data_tests: [not_null]
+      - name: partner_id
+        description: Synthetic partner identifier P01 through P05.
+        data_tests: [not_null]
+      - name: customer_id
+        description: Synthetic customer identifier, stable across both months.
+        data_tests: [not_null]
+      - name: customer_type
+        description: Synthetic household or business customer category.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['household', 'business']
+      - name: kwh
+        description: Monthly electricity consumption in kWh, with two decimal places.
+        data_tests: [not_null]
+  - name: int_daily_price_stats
+    description: Daily UTC statistics. Cheapest hours are ranked by price then timestamp to resolve ties.
+    columns:
+      - name: price_date_utc
+        description: One row per UTC date in the committed sample.
+        data_tests: [unique, not_null]
+      - name: hour_count
+        description: Number of hourly observations for this UTC day, expected to be 24.
+        data_tests: [not_null]
+      - name: min_price_eur_per_mwh
+        description: Lowest hourly wholesale price of the day in EUR/MWh.
+      - name: max_price_eur_per_mwh
+        description: Highest hourly wholesale price of the day in EUR/MWh.
+      - name: avg_price_eur_per_mwh
+        description: Arithmetic mean of the hourly prices in EUR/MWh, without intermediate rounding.
+      - name: cheapest_3_hours_utc
+        description: Three integer UTC hours ordered by ascending price then timestamp; hours need not be consecutive.
+        data_tests: [not_null]
+      - name: cheapest_3_avg_eur_per_mwh
+        description: Mean price of the three cheapest hours in EUR/MWh.
+      - name: negative_price_hours
+        description: Count of hourly prices below zero.
+  - name: mart_monthly_price_report
+    description: Monthly UTC wholesale price report, weighted by observed hourly counts.
+    columns:
+      - name: month
+        description: First day of the reporting month.
+        data_tests: [unique, not_null]
+      - name: day_count
+        description: Number of observed UTC dates in the month.
+        data_tests: [not_null]
+      - name: hour_count
+        description: Number of observed hourly prices; January has 744 and February 2024 has 696.
+        data_tests: [not_null]
+      - name: min_price_eur_per_mwh
+        description: Lowest hourly wholesale price of the month in EUR/MWh.
+      - name: max_price_eur_per_mwh
+        description: Highest hourly wholesale price of the month in EUR/MWh.
+      - name: avg_price_eur_per_mwh
+        description: Hour-weighted mean price in EUR/MWh, rounded to six decimals.
+        data_tests: [not_null]
+      - name: negative_price_hours
+        description: Total hours with negative wholesale prices in the month.

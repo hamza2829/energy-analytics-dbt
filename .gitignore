@@ -1,0 +1,13 @@
+.venv/
+.tmp/
+__pycache__/
+*.pyc
+target/
+logs/
+dbt_packages/
+data/*.duckdb*
+.dagster/
+source-response.json
+artifacts/*.json
+artifacts/*.csv
+dashboard/index.html

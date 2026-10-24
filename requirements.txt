@@ -1,0 +1,5 @@
+dbt-core==1.11.0
+dbt-duckdb==1.11.0
+duckdb==1.4.2
+dagster==1.11.16
+dagster-webserver==1.11.16

@@ -1,0 +1,27 @@
+name: energy_analytics
+version: '1.0.0'
+config-version: 2
+profile: energy_analytics
+model-paths: [models]
+seed-paths: [seeds]
+test-paths: [tests]
+clean-targets: [target, dbt_packages]
+vars:
+  sample_start: '2024-01-01'
+  sample_end_exclusive: '2024-03-01'
+models:
+  energy_analytics:
+    +materialized: table
+    +persist_docs:
+      relation: true
+      columns: true
+seeds:
+  energy_analytics:
+    raw_prices:
+      +column_types:
+        timestamp_utc: varchar
+        price_eur_per_mwh: decimal(12, 2)
+    partner_sales:
+      +column_types:
+        month: varchar
+        kwh: decimal(12, 2)
