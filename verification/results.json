@@ -1,0 +1,15 @@
+{
+  "models_verified": 5,
+  "data_tests_passed": 44,
+  "price_hours": 1440,
+  "daily_rows_checked": 60,
+  "commission_rows_checked": 10,
+  "monthly_price_rows_checked": 2,
+  "schedule_evaluation_run_requests": 1,
+  "example": {
+    "month": "2024-01-01",
+    "partner_id": "P01",
+    "kwh": "4340.30",
+    "commission_eur": "65.10"
+  }
+}

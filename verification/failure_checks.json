@@ -1,0 +1,41 @@
+{
+  "intentional_failure_checks": [
+    {
+      "case": "missing_hour",
+      "dbt_test": "no_missing_price_hours",
+      "status": "fail",
+      "failing_rows": 1,
+      "exit_code": 1
+    },
+    {
+      "case": "missing_whole_day",
+      "dbt_test": "no_missing_price_hours",
+      "status": "fail",
+      "failing_rows": 24,
+      "exit_code": 1
+    },
+    {
+      "case": "duplicate_hour",
+      "dbt_test": "no_missing_price_hours",
+      "status": "fail",
+      "failing_rows": 1,
+      "exit_code": 1
+    },
+    {
+      "case": "off_grid_hour",
+      "dbt_test": "no_missing_price_hours",
+      "status": "fail",
+      "failing_rows": 2,
+      "exit_code": 1
+    },
+    {
+      "case": "negative_commission",
+      "dbt_test": "commission_never_negative",
+      "status": "fail",
+      "failing_rows": 1,
+      "exit_code": 1
+    }
+  ],
+  "restored_build_all_successful": true,
+  "restored_data_tests_passed": 44
+}
