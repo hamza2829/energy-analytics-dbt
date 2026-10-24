@@ -1,0 +1,35 @@
+version: 2
+models:
+  - name: mart_monthly_partner_commission
+    description: Synthetic monthly partner statement. Commission is kWh times the seeded retail tariff times the commission fraction, rounded once per partner-month. Wholesale prices do not set this tariff.
+    columns:
+      - name: statement_id
+        description: Unique YYYY-MM and partner identifier.
+        data_tests: [unique, not_null]
+      - name: month
+        description: First day of the statement month.
+        data_tests: [not_null]
+      - name: partner_id
+        description: Synthetic partner identifier matching one seeded rule.
+        data_tests: [not_null]
+      - name: partner_name
+        description: Fictional display name from the commission rules.
+        data_tests: [not_null]
+      - name: customer_count
+        description: Distinct customers served by the partner in the month.
+        data_tests: [not_null]
+      - name: total_kwh
+        description: Total synthetic monthly customer consumption in kWh.
+        data_tests: [not_null]
+      - name: retail_rate_eur_per_kwh
+        description: Assumed flat retail energy tariff of EUR 0.30/kWh, excluding tax and other charges.
+        data_tests: [not_null]
+      - name: commission_pct
+        description: Commission fraction; 0.05 means 5 percent of synthetic energy sales revenue.
+        data_tests: [not_null]
+      - name: sales_eur
+        description: Monthly kWh times retail tariff, rounded to euro cents.
+        data_tests: [not_null]
+      - name: commission_eur
+        description: Monthly kWh times retail tariff times commission fraction, rounded to euro cents.
+        data_tests: [not_null]

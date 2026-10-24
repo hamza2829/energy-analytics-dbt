@@ -33,7 +33,12 @@ models:
         data_tests: [not_null]
       - name: partner_id
         description: Synthetic partner identifier P01 through P05.
-        data_tests: [not_null]
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('commission_rules')
+                field: partner_id
       - name: customer_id
         description: Synthetic customer identifier, stable across both months.
         data_tests: [not_null]
