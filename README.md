@@ -162,8 +162,28 @@ These are actual captures of generated dbt docs and the running dashboard, not m
 
 ![Offline dashboard showing hourly prices and January partner commissions](docs/screenshots/dashboard.jpg)
 
+## Running on BigQuery
+
+**not yet verified on BigQuery**
+
+DuckDB remains the default `dev` target at `data/energy.duckdb` and the only dbt target used in CI. The optional `bigquery` target uses environment variables for the Google Cloud project, dataset, location, authentication method and service account key path. Keys are never part of the repository. The separate optional adapter environment leaves the working DuckDB environment alone.
+
+Follow [the ordered BigQuery sandbox setup](docs/bigquery.md) to create your no-billing project, enable the API, create the dataset, authenticate yourself, install the adapter, load seeds and run the build. It includes the exact PowerShell commands and screenshot checklist.
+
+| BigQuery run result | Actual status |
+| --- | --- |
+| Cloud model builds | Not yet run by the user |
+| Cloud data tests | Not yet run by the user; no passing count claimed |
+| Differences from DuckDB | NUMERIC/INT64/ARRAY types and adapter-specific date/array syntax; cloud result comparison is pending |
+| Local setup result | The installed BigQuery adapter parsed the project successfully. A normal compile attempt stopped with missing application default credentials; no BigQuery query was executed |
+| Failure encountered in a cloud build | No cloud build has been performed, so model/test results and cloud failures remain unverified |
+| Required screenshots | Dataset with eight tables and terminal showing the BigQuery build/test summary; pending the user's run |
+
+The five model transformations retain the same calculations. The existing test files and test definitions are preserved. A small BigQuery-only wrapper translates the frozen hourly-calendar test's generator syntax. The guide's BigQuery commands use `--target-path target/bigquery` to preserve the DuckDB run artifacts.
+
 ## Limits and what I would change
 
+- BigQuery is optional and not yet verified on BigQuery. No billing account or cloud credentials were created. The user must run it before adding a cloud success claim. Sandbox expiration, quotas and feature restrictions apply.
 - This is a fixed two-month sample. The monthly schedule rebuilds the sample and exports all available months. It does not download new months, handle backfills or create statements for the current month.
 - All reporting uses UTC. A German billing system would need Europe/Berlin delivery periods and explicit handling of 23-hour and 25-hour days. The completeness test is intentionally anchored to the declared sample range, so an entirely absent day cannot disappear silently.
 - The sample has hourly market data from 2024. Supporting newer market intervals would require interval-aware ingestion and tests rather than assuming one row per hour.

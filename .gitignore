@@ -1,4 +1,13 @@
 .venv/
+.venv-bigquery/
+.metabase/
+plugins/
+.env
+.env.*
+credentials/
+.secrets/
+*-key.json
+*-credentials.json
 .tmp/
 __pycache__/
 *.pyc
@@ -6,6 +15,7 @@ target/
 logs/
 dbt_packages/
 data/*.duckdb*
+data/*.sqlite*
 .dagster/
 .user.yml
 source-response.json

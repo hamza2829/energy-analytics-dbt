@@ -4,5 +4,5 @@ select
     partner_id,
     customer_id,
     customer_type,
-    cast(kwh as decimal(12, 2)) as kwh
+    cast(kwh as {{ energy_numeric_type(12, 2) }}) as kwh
 from {{ ref('partner_sales') }}
