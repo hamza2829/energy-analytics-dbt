@@ -25,3 +25,7 @@ seeds:
       +column_types:
         month: varchar
         kwh: decimal(12, 2)
+    commission_rules:
+      +column_types:
+        commission_pct: decimal(6, 4)
+        retail_rate_eur_per_kwh: decimal(6, 4)

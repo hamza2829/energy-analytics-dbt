@@ -1,0 +1,6 @@
+partner_id,partner_name,commission_pct,retail_rate_eur_per_kwh
+P01,Elbe Energy,0.0500,0.3000
+P02,Spree Power,0.0600,0.3000
+P03,Rhine Partners,0.0450,0.3000
+P04,Isar Supply,0.0550,0.3000
+P05,Weser Sales,0.0400,0.3000

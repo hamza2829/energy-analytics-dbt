@@ -1,5 +1,25 @@
 version: 2
 seeds:
+  - name: commission_rules
+    description: Five fictional partners, commission fractions and assumed retail tariffs. These are demonstration rules, not real contracts.
+    columns:
+      - name: partner_id
+        description: One rule per partner, P01 through P05.
+        data_tests: [unique, not_null]
+      - name: partner_name
+        description: Fictional partner display name.
+        data_tests: [not_null]
+      - name: commission_pct
+        description: Commission as a fraction, with an explicit allowlist of the five sample rates.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0.04, 0.045, 0.05, 0.055, 0.06]
+                quote: false
+      - name: retail_rate_eur_per_kwh
+        description: Fixed demonstration tariff in EUR/kWh, excluding tax and other charges.
+        data_tests: [not_null]
   - name: raw_prices
     description: Real Energy-Charts.info DE-LU prices for Jan-Feb 2024 UTC. CC BY 4.0, Bundesnetzagentur | SMARD.de.
     columns:

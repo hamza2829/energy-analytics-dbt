@@ -1,0 +1,42 @@
+name: Offline analytics
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DBT_SEND_ANONYMOUS_USAGE_STATS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install
+        run: python -m pip install -r requirements.txt
+      - name: Build and test offline sample
+        run: dbt build --profiles-dir .
+      - name: Generate dbt docs
+        if: success()
+        run: dbt docs generate --profiles-dir .
+      - name: Export CSV and offline dashboard
+        if: success()
+        run: python -c "from scripts.run_pipeline import export_outputs; export_outputs()"
+      - name: Upload dbt results, docs, CSV and dashboard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: analytics-results
+          path: |
+            target/manifest.json
+            target/run_results.json
+            target/catalog.json
+            target/index.html
+            logs/dbt.log
+            artifacts/*.csv
+            dashboard/index.html
+          if-no-files-found: error
