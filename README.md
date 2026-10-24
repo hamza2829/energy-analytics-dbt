@@ -139,6 +139,7 @@ The verification date is 24 October 2026. Machine-readable local evidence is com
 | Generic test types | `unique`, `not_null`, `accepted_values`, `relationships` |
 | Custom test checks | Missing hour, whole missing day, duplicate, off-grid timestamp and negative commission all caused the expected failures |
 | Failure hit and fixed | Deliberately deleted `2024-01-15 12:00 UTC` from the generated staging table; `no_missing_price_hours` failed with 1 row; rebuilding from the committed seed restored the hour and all 44 tests passed |
+| Verification counter fix | After docs generation, successful tests appeared as `success` in `run_results.json`; counting only `pass` returned zero. The verifier now identifies test resource IDs and accepts both successful statuses, then asserts exactly 44 tests |
 | Independent arithmetic checks | 10 commission statements, 60 daily rows and 2 monthly price averages matched CSV calculations |
 | Example commission | January P01: 4,340.30 kWh x EUR 0.30 x 5% = **EUR 65.10** after rounding |
 | Total sample commission | EUR 708.90 across both months and five fictional partners |

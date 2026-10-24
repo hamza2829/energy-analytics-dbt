@@ -54,7 +54,11 @@ def main():
     context = build_schedule_context(scheduled_execution_time=datetime(2026, 11, 1, 5, tzinfo=timezone.utc))
     assert len(monthly_schedule.evaluate_tick(context).run_requests) == 1
     result = json.loads((ROOT / 'target/run_results.json').read_text())
-    passed = sum(r['status'] == 'pass' for r in result['results'])
+    # Docs generation can serialize successful test statuses as "success".
+    # Identify tests by their resource ID so the count also works after docs.
+    tests = [r for r in result['results'] if r['unique_id'].startswith('test.')]
+    passed = sum(r['status'] in ('pass', 'success') for r in tests)
+    assert len(tests) == 44 and passed == 44
     assert all(r['status'] in ('pass', 'success') for r in result['results'])
     summary = {'models_verified': 5, 'data_tests_passed': passed, 'price_hours': 1440,
                'daily_rows_checked': len(daily), 'commission_rows_checked': len(statements),
