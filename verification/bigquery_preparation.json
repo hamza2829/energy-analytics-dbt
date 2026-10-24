@@ -1,0 +1,10 @@
+{
+  "cloud_execution": "not yet verified on BigQuery",
+  "adapter_version": "1.11.0",
+  "local_profile_parse": "passed",
+  "offline_model_sql_render": "passed with anonymous credentials and all socket connections blocked",
+  "normal_compile": "stopped: application default credentials missing",
+  "duckdb_models_built": 5,
+  "duckdb_data_tests_passed": 44,
+  "existing_test_files_and_definitions_changed": false
+}

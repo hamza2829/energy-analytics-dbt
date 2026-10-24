@@ -1,0 +1,3 @@
+# Optional. Install into .venv-bigquery to leave the DuckDB environment alone.
+-r requirements.txt
+dbt-bigquery==1.11.0

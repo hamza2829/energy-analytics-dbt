@@ -6,3 +6,16 @@ energy_analytics:
       path: data/energy.duckdb
       schema: main
       threads: 1
+    bigquery:
+      type: bigquery
+      method: "{{ env_var('DBT_BQ_METHOD', 'oauth') }}"
+      project: "{{ env_var('DBT_BQ_PROJECT', 'not-configured') }}"
+      dataset: "{{ env_var('DBT_BQ_DATASET', 'energy_analytics') }}"
+      location: "{{ env_var('DBT_BQ_LOCATION', 'EU') }}"
+      # Used only with DBT_BQ_METHOD=service-account. OAuth uses gcloud ADC.
+      keyfile: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS', '') }}"
+      threads: 1
+      priority: interactive
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      maximum_bytes_billed: 1000000000
